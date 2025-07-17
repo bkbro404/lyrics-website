@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tharu Christian Bhajan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <div class="header-top">
+            <h1>🎵 Tharu Christian Bhajan</h1>
+            <div style="position: relative;">
+                <button id="hamburgerMenu" class="hamburger-menu">☰</button>
+                <div id="menuDropdown" class="menu-dropdown">
+                    <div id="homeMenu" class="menu-item">
+                        <span class="menu-item-icon">🏠</span>
+                        <span>Home</span>
+                    </div>
+                    <div id="singersMenu" class="menu-item">
+                        <span class="menu-item-icon">👥</span>
+                        <span>All Singers</span>
+                    </div>
+                    <div id="favoritesMenu" class="menu-item">
+                        <span class="menu-item-icon">❤️</span>
+                        <span>Favorites</span>
+                    </div>
+                    <div id="requestMenu" class="menu-item">
+                        <span class="menu-item-icon">📝</span>
+                        <span>Request Song</span>
+                    </div>
+                    <div id="aboutMenu" class="menu-item">
+                        <span class="menu-item-icon">ℹ️</span>
+                        <span>About</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search by song title or singer name...">
+            <button id="homeBtn" class="home-btn">🏠 Home</button>
+        </div>
+    </div>
+
+    <div id="menuOverlay" class="menu-overlay"></div>
+
+    <div class="main-content">
+        <div id="featuredSinger" class="featured-singer hidden">
+            <img id="featuredSingerImg" src="" alt="Featured Singer">
+            <h3 id="featuredSingerName"></h3>
+            <p>Featured Singer (10+ Songs)</p>
+        </div>
+
+        <div id="singersGrid" class="singers-grid hidden">
+            <h2 class="section-title">All Singers</h2>
+        </div>
+
+        <div id="songsSection">
+            <h2 class="section-title">All Songs (A-Z)</h2>
+            <div id="songsList" class="song-list"></div>
+        </div>
+    </div>
+
+    <div id="lyricsViewer" class="lyrics-viewer">
+        <div class="lyrics-header">
+            <button id="backBtn" class="back-btn">← Back</button>
+            <div class="lyrics-controls">
+                <button id="prevSong" class="control-btn">⬅ Prev</button>
+                <button id="nextSong" class="control-btn">Next ➡</button>
+                <button id="zoomOut" class="control-btn">A-</button>
+                <button id="zoomIn" class="control-btn">A+</button>
+                <button id="toggleChords" class="control-btn">Show Chords</button>
+                <button id="transposeDown" class="control-btn">♭</button>
+                <button id="transposeUp" class="control-btn">♯</button>
+            </div>
+        </div>
+        <div id="lyricsContent" class="lyrics-content">
+            <div id="lyricsText" class="lyrics-text"></div>
+            <div id="videoSection" class="video-section"></div>
+        </div>
+    </div>
+
+    <div id="requestModal" class="modal">
+        <div class="modal-content">
+            <h3>🎵 Request New Songs</h3>
+            <p>Want to add your favorite Tharu Christian songs to our collection? Send us your requests!</p>
+            <p>Please include:</p>
+            <ul>
+                <li>Song title</li>
+                <li>Singer name</li>
+                <li>Lyrics (if available)</li>
+                <li>YouTube link (if available)</li>
+            </ul>
+            <a href="mailto:chaudharybibek806@gmail.com?subject=New Song Request - Tharu Christian Bhajan&body=Song Title:%0D%0ASinger Name:%0D%0ALyrics:%0D%0AYouTube Link:%0D%0A" class="email-link">📧 Send Email</a>
+            <br>
+            <button id="closeRequestModal" class="close-modal">Close</button>
+        </div>
+    </div>
+
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <h3>ℹ️ About Tharu Christian Bhajan</h3>
+            <div id="aboutContent" class="about-content">
+                <!-- Content will be loaded from about.json -->
+            </div>
+            <button id="closeAboutModal" class="close-modal">Close</button>
+        </div>
+    </div>
+
+    <!-- Load song files -->
+    <script src="songs/song1.js"></script>
+    <script src="songs/song2.js"></script>
+    <script src="songs/song3.js"></script>
+    <script src="songs/song4.js"></script>
+    <script src="songs/song5.js"></script>
+    <script src="songs/song6.js"></script>
+    
+    <!-- Load main app -->
+    <script src="app.js"></script>
+</body>
+</html>
