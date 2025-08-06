@@ -66,30 +66,39 @@ async function loadData() {
         const aboutResponse = await fetch('about.json');
         aboutData = await aboutResponse.json();
 
-       // Collect all songs from song files
+        // Collect all songs from song files
         allSongs = [
-            ...(window.songs1 || []),      
-            ...(window.songs2 || []),
-            ...(window.songs3 || []),
-            ...(window.songs4 || []),
-            ...(window.songs5 || []),
-            ...(window.songs6 || []),
+            ...(window.yomas || []),
+            ...(window.raj || []),
+            ...(window.ramsing || []),
+            ...(window.bhajan || []),
+            ...(window.BalRam || []),
+            ...(window.Bisram || []),
+            ...(window.Chaitu || []),
+            ...(window.Ghanshyam || []),
+            ...(window.Haribans || []),
+            ...(window.Mukesh || []),
+            ...(window.JugRam || []),
+            ...(window.Raghupati || []),
+            ...(window.RamCharan || []),
+            ...(window.Ramji || []),
+            ...(window.Sani || []),
             // Add more singers as needed
         ].filter(song => song); // Remove undefined
 
         currentSongs = [...allSongs];
-        
+
         console.log('Data loaded:', {
             songs: allSongs.length,
-            singers: Object.keys(singers.singers).length 
+            singers: Object.keys(singers.singers).length
         });
 
     } catch (error) {
         console.error('Error:', error);
         // Fallback data (unchanged)
         singers = { singers: {} };
-        aboutData = { 
-            description: "Tharu Christian Bhajan App", 
+        aboutData = {
+            description: "Tharu Christian Bhajan App",
             version: "1.0.0"
         };
         allSongs = [];
@@ -135,7 +144,7 @@ function loadAboutContent() {
 function attachEventListeners() {
     searchInput.addEventListener('input', handleSearch);
     homeBtn.addEventListener('click', goHome);
-    
+
     // Menu events
     hamburgerMenu.addEventListener('click', toggleMenu);
     menuOverlay.addEventListener('click', closeMenu);
@@ -159,11 +168,11 @@ function attachEventListeners() {
         closeMenu();
         openAboutModal();
     });
-    
+
     // Modal events
     closeRequestModalBtn.addEventListener('click', closeRequestModal);
     closeAboutModalBtn.addEventListener('click', closeAboutModal);
-    
+
     // Lyrics viewer events
     backBtn.addEventListener('click', closeLyricsViewer);
     prevSong.addEventListener('click', () => navigateSong(-1));
@@ -173,7 +182,7 @@ function attachEventListeners() {
     toggleChords.addEventListener('click', toggleChordsView);
     transposeDown.addEventListener('click', () => transpose(-1));
     transposeUp.addEventListener('click', () => transpose(1));
-    
+
     // Close modals when clicking outside
     requestModal.addEventListener('click', (e) => {
         if (e.target === requestModal) closeRequestModal();
@@ -181,7 +190,7 @@ function attachEventListeners() {
     aboutModal.addEventListener('click', (e) => {
         if (e.target === aboutModal) closeAboutModal();
     });
-    
+
     // Close menu when clicking elsewhere
     document.addEventListener('click', (e) => {
         if (!hamburgerMenu.contains(e.target) && !menuDropdown.contains(e.target)) {
@@ -204,7 +213,7 @@ function getSingers() {
 function renderFeaturedSinger() {
     const singersData = getSingers();
     const featuredSingerData = Object.entries(singersData).find(([name, songs]) => songs.length >= 10);
-    
+
     if (featuredSingerData) {
         const [singerName, singerSongs] = featuredSingerData;
         const singerImage = singers.singers[singerName]?.image || singers.singers["David Chaudhary"]?.image;
@@ -219,28 +228,28 @@ function renderFeaturedSinger() {
 function renderSongs(songsToRender = allSongs) {
     currentSongs = [...songsToRender].sort((a, b) => a.title.localeCompare(b.title));
     songsList.innerHTML = '';
-    
+
     currentSongs.forEach((song, index) => {
         const songElement = document.createElement('div');
         songElement.className = 'song-item fade-in';
         const isFavorited = favoriteIds.includes(song.id);
-        
+
         songElement.innerHTML = `
             <div class="song-info">
                 <div class="song-title">${song.title}</div>
-                <div class="song-singer">by ${song.singer}</div>
+                <div class="song-singer"> ${song.singer}</div>
             </div>
             <button class="favorite-btn ${isFavorited ? 'favorited' : ''}" data-song-id="${song.id}">
                 ${isFavorited ? '❤️' : '🤍'}
             </button>
         `;
-        
+
         songElement.querySelector('.song-info').addEventListener('click', () => openLyricsViewer(index));
         songElement.querySelector('.favorite-btn').addEventListener('click', (e) => {
             e.stopPropagation();
             toggleFavorite(song.id);
         });
-        
+
         songsList.appendChild(songElement);
     });
 }
@@ -248,14 +257,14 @@ function renderSongs(songsToRender = allSongs) {
 function renderSingers() {
     const singersData = getSingers();
     const singersArray = Object.entries(singersData);
-    
+
     singersGrid.innerHTML = '<h2 class="section-title">All Singers</h2>';
-    
+
     singersArray.forEach(([singerName, singerSongs]) => {
         const singerElement = document.createElement('div');
         singerElement.className = 'singer-card fade-in';
         const singerImage = singers.singers[singerName]?.image || singers.singers["David Chaudhary"]?.image;
-        
+
         singerElement.innerHTML = `
             <img src="${singerImage}" alt="${singerName}">
             <div style="font-weight: bold; margin-bottom: 0.3rem;">${singerName}</div>
@@ -313,7 +322,7 @@ function showFavoritesView() {
     currentSingerFilter = null;
     singersGrid.classList.add('hidden');
     songsSection.classList.remove('hidden');
-    
+
     const favoriteSongs = allSongs.filter(song => favoriteIds.includes(song.id));
     document.querySelector('#songsSection .section-title').textContent = `❤️ Favorite Songs (${favoriteSongs.length})`;
     renderSongs(favoriteSongs);
@@ -335,7 +344,7 @@ function toggleFavorite(songId) {
     } else {
         favoriteIds.splice(index, 1);
     }
-    
+
     if (currentView === 'favorites') {
         const favoriteSongs = allSongs.filter(song => favoriteIds.includes(song.id));
         document.querySelector('#songsSection .section-title').textContent = `❤️ Favorite Songs (${favoriteSongs.length})`;
@@ -371,7 +380,7 @@ function showSingerSongs(singerName) {
     currentSingerFilter = singerName;
     singersGrid.classList.add('hidden');
     songsSection.classList.remove('hidden');
-    
+
     document.querySelector('#songsSection .section-title').textContent = `Songs by ${singerName}`;
     renderSongs(singerSongs);
     updateHomeButtonText();
@@ -379,7 +388,7 @@ function showSingerSongs(singerName) {
 
 function handleSearch() {
     const query = searchInput.value.toLowerCase().trim();
-    
+
     if (query === '') {
         if (currentView === 'songs' && !currentSingerFilter) {
             document.querySelector('#songsSection .section-title').textContent = 'All Songs (A-Z)';
@@ -403,8 +412,8 @@ function handleSearch() {
         songsToFilter = allSongs.filter(song => song.singer === currentSingerFilter);
     }
 
-    const filteredSongs = songsToFilter.filter(song => 
-        song.title.toLowerCase().includes(query) || 
+    const filteredSongs = songsToFilter.filter(song =>
+        song.title.toLowerCase().includes(query) ||
         song.singer.toLowerCase().includes(query)
     );
 
@@ -420,7 +429,7 @@ function handleSearch() {
     if (currentView === 'favorites') {
         contextText = ' in Favorites';
     } else if (currentSingerFilter) {
-        contextText = ` by ${currentSingerFilter}`;
+        contextText = ` ${currentSingerFilter}`;
     }
 
     document.querySelector('#songsSection .section-title').textContent = `Search Results for "${query}"${contextText}`;
@@ -432,10 +441,10 @@ function openLyricsViewer(songIndex) {
     currentTranspose = 0;
     showingChords = false;
     currentZoom = 1.1;
-    
+
     toggleChords.textContent = 'Show Chords';
     toggleChords.classList.remove('active');
-    
+
     lyricsViewer.style.display = 'flex';
     renderLyrics();
 }
@@ -449,14 +458,14 @@ function renderLyrics() {
     if (!song) return;
 
     let content = showingChords && song.hasChords ? song.chords : song.lyrics;
-    
+
     if (showingChords && currentTranspose !== 0) {
         content = transposeChords(content, currentTranspose);
     }
 
     lyricsText.innerHTML = `
         <h2 style="color: #5D5CDE; text-align: center; margin-bottom: 1rem;">${song.title}</h2>
-        <h3 style="color: #aaa; text-align: center; margin-bottom: 2rem;">by ${song.singer}</h3>
+        <h3 style="color: #aaa; text-align: center; margin-bottom: 2rem;"> ${song.singer}</h3>
         <div style="font-size: ${currentZoom}rem;">${formatLyrics(content)}</div>
     `;
 
@@ -522,12 +531,12 @@ function transposeChords(lyrics, steps) {
 function transposeChord(chord, steps) {
     const chordMatch = chord.match(/^([A-G][#b]?)(.*)$/);
     if (!chordMatch) return chord;
-    
+
     const [, root, suffix] = chordMatch;
     const currentIndex = chordProgression.indexOf(root.replace('b', '#'));
-    
+
     if (currentIndex === -1) return chord;
-    
+
     const newIndex = (currentIndex + steps + chordProgression.length) % chordProgression.length;
     return chordProgression[newIndex] + suffix;
 }
@@ -549,7 +558,7 @@ function adjustZoom(amount) {
 function toggleChordsView() {
     const song = currentSongs[currentSongIndex];
     if (!song.hasChords) return;
-    
+
     showingChords = !showingChords;
     toggleChords.textContent = showingChords ? 'Hide Chords' : 'Show Chords';
     toggleChords.classList.toggle('active', showingChords);
@@ -558,7 +567,7 @@ function toggleChordsView() {
 
 function transpose(direction) {
     if (!showingChords) return;
-    
+
     currentTranspose += direction;
     currentTranspose = Math.max(-6, Math.min(6, currentTranspose));
     renderLyrics();
