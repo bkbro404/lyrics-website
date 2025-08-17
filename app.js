@@ -83,6 +83,9 @@ async function loadData() {
             ...(window.RamCharan || []),
             ...(window.Ramji || []),
             ...(window.Sani || []),
+            ...(window.Unknown || []),
+            ...(window.Chotilal || []),
+            ...(window.TejBahadur || []),
             // Add more singers as needed
         ].filter(song => song); // Remove undefined
 
