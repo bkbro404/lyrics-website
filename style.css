@@ -338,6 +338,7 @@ body {
 .lyrics-text {
     flex: 1;
     margin-bottom: 2rem;
+    text-align: center;
 }
 
 .video-section {
@@ -380,9 +381,9 @@ body {
 .chord {
     /* position: absolute; */
     top: -1.8em;
-    color: #5D5CDE;
+    color: #53f033e0;
     font-weight: bold;
-    font-size: 0.8em;
+    font-size: 0.9em;
     height: 1em;
     pointer-events: none;
     transform: translateX(-50%);
