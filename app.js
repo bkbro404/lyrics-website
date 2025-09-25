@@ -86,6 +86,7 @@ async function loadData() {
             ...(window.Unknown || []),
             ...(window.Chotilal || []),
             ...(window.TejBahadur || []),
+            ...(window.Himal || []),
             // Add more singers as needed
         ].filter(song => song); // Remove undefined
 
