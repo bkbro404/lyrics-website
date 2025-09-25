@@ -44,7 +44,7 @@ window.Unknown = [
         
 [E]हृदयक कोनो-कोनोम, गुञ्जटीबा [A]येशूक [E]नाउँ (२) 
 [E]कत्रा मजा येशूक [F#m]नाउँ, हृदयम [B]हल्लेलु[E]याह (२)`,
-        hasChords: "",
+        hasChords: true,
         youtubeLink: ""
     },
     {
